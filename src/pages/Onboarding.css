@@ -1,0 +1,214 @@
+.onboarding {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.ob-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 0 120px;
+}
+
+/* Welcome */
+.ob-welcome {
+  background: linear-gradient(160deg, #0f1f44 0%, #1a3566 100%);
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 28px;
+}
+.ob-logo {
+  width: 56px; height: 56px; background: #2563eb; border-radius: 14px;
+  font-size: 24px; font-weight: 700; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+}
+.ob-welcome h1 { font-size: 28px; font-weight: 700; line-height: 1.4; margin-bottom: 12px; }
+.ob-welcome p { font-size: 15px; color: #b0c4de; line-height: 1.7; margin-bottom: 36px; }
+.ob-welcome p strong { color: #3db891; }
+
+.ob-welcome-steps {
+  display: flex; flex-direction: column; gap: 12px;
+  width: 100%; max-width: 280px; margin: 0 auto 36px;
+}
+.ob-step-item {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 16px;
+}
+.ob-step-icon { font-size: 20px; }
+.ob-step-label { font-size: 14px; font-weight: 600; }
+
+.ob-btn-primary {
+  display: block; width: 100%;
+  background: #3db891; color: #fff; border: none;
+  border-radius: 14px; padding: 15px;
+  font-size: 16px; font-weight: 700; text-align: center; cursor: pointer;
+  transition: background 0.15s;
+}
+.ob-btn-primary:hover:not(:disabled) { background: #0f6e4a; }
+.ob-btn-primary:disabled { background: #c6ead9; color: #9ca3af; cursor: default; }
+
+.ob-skip {
+  margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.4);
+  background: none; border: none; cursor: pointer;
+}
+
+/* Progress bar */
+.ob-header { padding: 20px 20px 0; }
+.ob-progress {
+  height: 4px; background: #e2e8f0; border-radius: 2px; margin-bottom: 10px; overflow: hidden;
+}
+.ob-progress-fill {
+  height: 100%; background: #3db891; border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.ob-step-num { font-size: 12px; color: #9ca3af; margin-bottom: 12px; }
+.ob-header h2 { font-size: 22px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; color: #1a2744; }
+.ob-sub { font-size: 13px; color: #6b7280; margin-bottom: 16px; }
+
+/* Career cards */
+.ob-career-list {
+  flex: 1; padding: 8px 16px; display: flex; flex-direction: column; gap: 10px;
+  overflow-y: auto;
+}
+.ob-career-card {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: #fff; border: 1.5px solid #e2e8f0; border-radius: 14px;
+  padding: 14px 16px; cursor: pointer; text-align: left;
+  transition: all 0.15s; width: 100%;
+}
+.ob-career-card.selected { border-color: #3db891; background: #f0fdf9; }
+.ob-career-card:hover { border-color: #3db891; }
+.ob-career-info { flex: 1; }
+.ob-career-title { font-size: 15px; font-weight: 700; color: #1a2744; margin-bottom: 4px; }
+.ob-career-desc { font-size: 12px; color: #6b7280; line-height: 1.5; margin-bottom: 8px; }
+.ob-career-quals { display: flex; flex-wrap: wrap; gap: 4px; }
+.ob-qual-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 8px;
+  background: #dde3f0; color: #1a2744; border-radius: 10px;
+}
+.ob-career-custom { border-style: dashed; }
+
+.ob-check {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid #e2e8f0; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #fff;
+  transition: all 0.15s;
+}
+.ob-check.checked { background: #3db891; border-color: #3db891; }
+
+/* Qualifications */
+.ob-recommended {
+  margin: 0 16px 12px;
+  background: #f0fdf9; border: 1px solid #c6ead9; border-radius: 12px; padding: 12px;
+}
+.ob-rec-label { font-size: 12px; font-weight: 700; color: #0f6e4a; margin-bottom: 8px; }
+.ob-rec-quals { display: flex; flex-wrap: wrap; gap: 6px; }
+.ob-rec-qual {
+  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 1.5px solid #3db891; color: #0f6e4a; background: #fff; cursor: pointer;
+  transition: all 0.15s;
+}
+.ob-rec-qual.selected { background: #3db891; color: #fff; }
+
+.ob-category-tabs {
+  display: flex; gap: 6px; padding: 0 16px 10px; overflow-x: auto; scrollbar-width: none;
+}
+.ob-category-tabs::-webkit-scrollbar { display: none; }
+.ob-cat-tab {
+  flex-shrink: 0; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  border: 1.5px solid #e2e8f0; color: #9ca3af; background: #fff; cursor: pointer;
+  transition: all 0.15s;
+}
+.ob-cat-tab.active { background: #1a2744; color: #fff; border-color: #1a2744; }
+
+.ob-qual-list {
+  flex: 1; padding: 0 16px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto;
+}
+.ob-qual-item {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px;
+  padding: 12px 14px; cursor: pointer; text-align: left; width: 100%;
+  transition: all 0.15s;
+}
+.ob-qual-item.selected { border-color: #3db891; background: #f0fdf9; }
+.ob-qual-color { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.ob-qual-info { flex: 1; }
+.ob-qual-name { font-size: 14px; font-weight: 600; color: #1a2744; }
+.ob-qual-hours { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+/* Footer */
+.ob-footer {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: #fff; border-top: 1px solid #e2e8f0;
+  padding: 12px 20px 28px;
+}
+.ob-selected-count { font-size: 12px; color: #3db891; font-weight: 600; text-align: center; margin-bottom: 8px; }
+.ob-back {
+  display: block; width: 100%; text-align: center;
+  font-size: 13px; color: #9ca3af; margin-top: 10px; cursor: pointer;
+  background: none; border: none;
+}
+
+/* Hours */
+.ob-hours-screen { padding-bottom: 0; }
+.ob-hours-picker {
+  display: flex; align-items: center; justify-content: center; gap: 28px;
+  padding: 24px 0;
+}
+.ob-hours-btn {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 2px solid #e2e8f0; font-size: 24px; color: #1a2744;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background: #fff; transition: all 0.15s;
+}
+.ob-hours-btn:hover { border-color: #3db891; color: #3db891; }
+.ob-hours-display { text-align: center; min-width: 100px; }
+.ob-hours-num { font-size: 56px; font-weight: 700; color: #1a2744; }
+.ob-hours-unit { font-size: 15px; color: #9ca3af; display: block; margin-top: -4px; }
+
+.ob-hours-hint {
+  margin: 0 16px 16px;
+  background: #f8fafc; border-radius: 12px; padding: 12px 16px;
+  font-size: 14px; color: #4a5568; line-height: 1.6;
+}
+
+.ob-estimation {
+  margin: 0 16px 100px;
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px;
+}
+.ob-est-title { font-size: 12px; font-weight: 700; color: #9ca3af; margin-bottom: 10px; }
+.ob-est-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid #f0f4f8;
+}
+.ob-est-item:last-child { border-bottom: none; }
+.ob-est-name { font-size: 13px; font-weight: 600; color: #1a2744; }
+.ob-est-time { font-size: 13px; color: #3db891; font-weight: 700; }
+
+/* Done */
+.ob-done {
+  background: linear-gradient(160deg, #0f1f44 0%, #1a3566 100%);
+  align-items: center; justify-content: center; text-align: center;
+  padding: 48px 28px;
+}
+.ob-done-content { width: 100%; }
+.ob-done-icon { font-size: 56px; margin-bottom: 20px; }
+.ob-done h2 { font-size: 26px; font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 12px; }
+.ob-done p { font-size: 14px; color: #b0c4de; line-height: 1.7; margin-bottom: 28px; }
+.ob-done-summary {
+  background: rgba(255,255,255,0.08); border-radius: 14px; padding: 16px;
+  margin-bottom: 28px;
+}
+.ob-done-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.ob-done-row:last-child { border-bottom: none; }
+.ob-done-label { font-size: 13px; color: #8ab4d4; }
+.ob-done-val { font-size: 14px; font-weight: 700; color: #fff; }
+.ob-btn-start { font-size: 17px; padding: 17px; }

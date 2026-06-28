@@ -66,10 +66,14 @@ export default function StudyPlan() {
         }),
       });
       const data = await res.json();
-      const text = data.content?.[0]?.text || 'エラーが発生しました。';
-      setPlan(text);
-    } catch (e) {
-      setPlan('サーバーに接続できません。node server.jsを起動してください。');
+      if (data.error) {
+        setPlan(`エラー: ${data.error.message || JSON.stringify(data.error)}`);
+      } else {
+        const text = data.content?.[0]?.text || `レスポンス異常: ${JSON.stringify(data)}`;
+        setPlan(text);
+      }
+    } catch (e: any) {
+      setPlan(`接続エラー: ${e.message}`);
     }
     setLoading(false);
   };

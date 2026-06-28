@@ -5,9 +5,10 @@ import './Dashboard.css';
 
 interface Props {
   onNavigate: (page: string) => void;
+  onShowPremium: () => void;
 }
 
-export default function Dashboard({ onNavigate }: Props) {
+export default function Dashboard({ onNavigate, onShowPremium }: Props) {
   const { state, elapsedSeconds, startTimer, stopTimer, currentWeekCommit, getStreak } = useAppState();
 
   const formatTime = (secs: number) => {

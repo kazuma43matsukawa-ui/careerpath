@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { useAuth } from './hooks/useAuth';
-import Landing from './pages/Landing';
 import Auth from './pages/Auth';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
@@ -10,8 +9,10 @@ import Commit from './pages/Commit';
 import Calendar from './pages/Calendar';
 import Study from './pages/Study';
 import Consult from './pages/Consult';
+import Premium from './pages/Premium';
+import StudyPlan from './pages/StudyPlan';
 
-type Page = 'landing' | 'auth' | 'onboarding' | 'dashboard' | 'goals' | 'study' | 'consult' | 'commit' | 'calendar';
+type Page = 'auth' | 'onboarding' | 'dashboard' | 'goals' | 'study' | 'consult' | 'commit' | 'calendar' | 'studyplan';
 
 const ONBOARDING_KEY = 'careerpath_onboarded';
 
@@ -50,7 +51,8 @@ function NavIcon({ name }: { name: string }) {
 
 export default function App() {
   const [page, setPage] = useState<Page>('auth');
-  const { user, loading, signOut, profile } = useAuth();
+  const [showPremium, setShowPremium] = useState(false);
+  const { user, loading } = useAuth();
 
   const navItems = [
     { id: 'dashboard', label: 'ホーム' },
@@ -69,6 +71,12 @@ export default function App() {
         setPage('auth');
       }
     }
+    // 決済完了後の処理
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      alert('🎉 プレミアムへのアップグレードが完了しました！');
+      window.history.replaceState({}, '', '/');
+    }
   }, [user, loading]);
 
   const handleAuthComplete = () => {
@@ -83,8 +91,9 @@ export default function App() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0f1f3d', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ color: '#2ec98a', fontSize: 24, fontWeight: 700 }}>C</div>
+      <div style={{ minHeight: '100vh', background: '#0f1f3d', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12 }}>
+        <div style={{ width: 48, height: 48, background: '#2563eb', borderRadius: 14, color: '#fff', fontSize: 22, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>C</div>
+        <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>読み込み中...</div>
       </div>
     );
   }
@@ -94,11 +103,12 @@ export default function App() {
 
   return (
     <div>
-      {page === 'dashboard' && <Dashboard onNavigate={(p) => setPage(p as Page)} />}
+      {page === 'dashboard' && <Dashboard onNavigate={(p) => setPage(p as Page)} onShowPremium={() => setShowPremium(true)} />}
       {page === 'goals' && <Goals />}
       {page === 'study' && <Study />}
-      {page === 'consult' && <Consult />}
+      {page === 'consult' && <Consult onShowPremium={() => setShowPremium(true)} />}
       {page === 'calendar' && <Calendar />}
+      {page === 'studyplan' && <StudyPlan />}
 
       <nav className="bottom-nav">
         {navItems.map(item => (
@@ -108,6 +118,8 @@ export default function App() {
           </button>
         ))}
       </nav>
+
+      {showPremium && <Premium onClose={() => setShowPremium(false)} />}
     </div>
   );
 }

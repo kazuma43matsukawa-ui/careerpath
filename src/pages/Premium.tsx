@@ -1,3 +1,4 @@
+import { CHECKOUT_API } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import './Premium.css';
@@ -14,7 +15,7 @@ export default function Premium({ onClose }: Props) {
     if (!user) return;
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/api/create-checkout', {
+      const res = await fetch(CHECKOUT_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id, email: user.email }),

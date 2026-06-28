@@ -1,3 +1,4 @@
+import { CHAT_API } from '../lib/api';
 import React, { useState, useRef, useEffect } from 'react';
 import { useAppState } from '../hooks/useAppState';
 import { QUALIFICATIONS, CAREERS } from '../data/masterData';
@@ -74,7 +75,7 @@ export default function Consult({ onShowPremium }: Props) {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/chat', {
+      const response = await fetch(CHAT_API, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

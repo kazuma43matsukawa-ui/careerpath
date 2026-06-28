@@ -1,3 +1,4 @@
+import { CHAT_API } from '../lib/api';
 import React, { useState } from 'react';
 import { useAppState } from '../hooks/useAppState';
 import { QUALIFICATIONS } from '../data/masterData';
@@ -54,7 +55,7 @@ export default function StudyPlan() {
 上記の条件で、週別の具体的な学習プランを作成してください。`;
 
     try {
-      const res = await fetch('http://localhost:3001/api/chat', {
+      const res = await fetch(CHAT_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -159,6 +159,31 @@ export default function Dashboard({ onNavigate, onShowPremium }: Props) {
             })
           )}
         </div>
+
+        {/* AI学習プランバナー */}
+        <button className="studyplan-banner" onClick={() => onNavigate('studyplan')}>
+          <div className="spb-left">
+            <p className="spb-icon">📋</p>
+            <div>
+              <p className="spb-title">AI学習プランを生成する</p>
+              <p className="spb-desc">試験日を入力するだけで最適スケジュールを作成</p>
+            </div>
+          </div>
+          <span className="spb-arrow">→</span>
+        </button>
+
+        {/* プレミアムバナー */}
+        <button className="premium-banner" onClick={onShowPremium}>
+          <div className="pb-left">
+            <p className="pb-icon">⭐</p>
+            <div>
+              <p className="pb-title">プレミアムにアップグレード</p>
+              <p className="pb-desc">AI相談無制限・学習プラン自動更新 ¥480/月</p>
+            </div>
+          </div>
+          <span className="pb-arrow">→</span>
+        </button>
+
       </div>
     </div>
   );

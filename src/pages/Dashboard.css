@@ -81,3 +81,35 @@
 .goal-card-bottom { display: flex; justify-content: space-between; margin-top: 6px; }
 .goal-logged { font-size: 11px; color: var(--text-muted); font-weight: 500; }
 .goal-pct { font-size: 11px; color: var(--text-muted); font-weight: 700; }
+
+/* Study Plan Banner */
+.studyplan-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, #f0fdf8, #e8faf3);
+  border: 1.5px solid rgba(46,201,138,0.3);
+  border-radius: var(--radius); padding: 14px 16px;
+  cursor: pointer; width: 100%; text-align: left;
+  transition: all 0.15s; box-shadow: var(--shadow-sm);
+}
+.studyplan-banner:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.spb-left { display: flex; align-items: center; gap: 12px; }
+.spb-icon { font-size: 24px; }
+.spb-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+.spb-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.spb-arrow { font-size: 18px; color: var(--green); }
+
+/* Premium Banner */
+.premium-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, #1a2744, #1e3566);
+  border-radius: var(--radius); padding: 14px 16px;
+  cursor: pointer; width: 100%; text-align: left;
+  transition: all 0.15s; box-shadow: 0 4px 16px rgba(15,31,61,0.2);
+  margin-bottom: 10px;
+}
+.premium-banner:hover { transform: translateY(-1px); }
+.pb-left { display: flex; align-items: center; gap: 12px; }
+.pb-icon { font-size: 24px; }
+.pb-title { font-size: 14px; font-weight: 700; color: #fff; }
+.pb-desc { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.pb-arrow { font-size: 18px; color: var(--green); }

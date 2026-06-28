@@ -1,73 +1,83 @@
 .dashboard .dash-header {
-  background: linear-gradient(135deg, #0f1f44 0%, #1a3566 100%);
-  padding: 20px 18px 18px;
+  background: linear-gradient(145deg, #080f1e 0%, #0f1f3d 50%, #1a3566 100%);
+  padding: 24px 20px 20px;
   color: #fff;
 }
-.dash-header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-.dash-greeting { font-size: 13px; color: #8ab4d4; margin-bottom: 2px; }
-.dash-title { font-size: 20px; font-weight: 700; }
-.dash-date { font-size: 11px; color: #8ab4d4; text-align: right; }
+.dash-header-inner { display: flex; justify-content: space-between; align-items: flex-end; }
+.dash-greeting { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 4px; font-weight: 500; }
+.dash-title { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; }
+.dash-date { font-size: 11px; color: rgba(255,255,255,0.4); text-align: right; }
 
 .dash-body { padding: 16px 16px 0; display: flex; flex-direction: column; gap: 14px; }
 
 /* Commit card */
-.commit-card { border: 1px solid #e2e8f0; }
-.commit-card-top { display: flex; justify-content: space-between; align-items: center; }
-.commit-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
-.commit-hours { font-size: 22px; font-weight: 700; }
-.commit-done { color: var(--text); }
-.commit-sep { color: var(--text-light); font-size: 16px; }
-.commit-target { color: var(--text-light); font-size: 16px; }
-.commit-donut-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-.commit-pct-label {
-  position: absolute; font-size: 11px; font-weight: 700; color: var(--navy);
+.commit-card {
+  background: linear-gradient(135deg, #fff 0%, #f8fffe 100%);
+  border: 1px solid rgba(46,201,138,0.15);
+  box-shadow: 0 4px 20px rgba(46,201,138,0.1);
 }
-.commit-remaining { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+.commit-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.commit-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.commit-hours { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
+.commit-done { color: var(--text); }
+.commit-sep { color: var(--text-light); font-size: 18px; }
+.commit-target { color: var(--text-light); font-size: 18px; }
+.commit-donut-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.commit-pct-label { position: absolute; font-size: 11px; font-weight: 800; color: var(--navy); }
+.commit-remaining { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
 
 /* Timer */
-.timer-card { text-align: center; border: 2px solid var(--green); }
-.timer-card--active { background: #f0fdf9; }
-.timer-qual-name { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-.timer-elapsed { font-size: 44px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; letter-spacing: -1px; margin-bottom: 14px; }
-.btn-stop {
-  background: var(--navy); color: #fff; border-radius: var(--radius-sm);
-  padding: 11px 24px; font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: background 0.15s;
+.timer-card { border: 2px solid var(--green); background: linear-gradient(135deg, #f0fdf8 0%, #e8faf3 100%); }
+.timer-card--active { }
+.timer-qual-name { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-align: center; }
+.timer-elapsed {
+  font-size: 52px; font-weight: 800; color: var(--navy);
+  font-variant-numeric: tabular-nums; letter-spacing: -3px;
+  text-align: center; margin-bottom: 16px;
 }
-.btn-stop:hover { background: #2a3a5c; }
+.btn-stop {
+  display: block; width: 100%;
+  background: var(--navy); color: #fff; border-radius: var(--radius);
+  padding: 13px; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: all 0.15s; box-shadow: 0 4px 12px rgba(15,31,61,0.2);
+}
+.btn-stop:hover { background: #1a3566; transform: translateY(-1px); }
 
-/* Start study */
-.start-study { border: 1px dashed var(--border); background: #fafafa; }
-.start-label { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
+/* Quick start */
+.start-study {
+  background: #fafbff;
+  border: 1.5px dashed var(--border);
+}
+.start-label { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
 .start-list { display: flex; flex-direction: column; gap: 8px; }
 .start-item {
   display: flex; justify-content: space-between; align-items: center;
-  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 10px 12px; cursor: pointer; transition: border-color 0.15s;
+  background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px 14px; cursor: pointer; transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
 }
-.start-item:hover { border-color: var(--green); }
-.start-item-name { font-size: 14px; font-weight: 600; text-align: left; }
+.start-item:hover { border-color: var(--green); box-shadow: 0 4px 12px rgba(46,201,138,0.15); transform: translateY(-1px); }
+.start-item-name { font-size: 14px; font-weight: 700; text-align: left; letter-spacing: -0.01em; }
 .start-item-sub { font-size: 11px; color: var(--text-light); margin-top: 2px; }
-.start-item-play { font-size: 18px; color: var(--green); }
+.start-item-play { font-size: 20px; color: var(--green); }
 
-/* Goals section */
-.section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.section-title { font-size: 15px; font-weight: 700; }
-.section-link { font-size: 13px; color: var(--green); font-weight: 600; cursor: pointer; }
+/* Today's stats */
+.today-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.today-stat {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 10px; text-align: center; box-shadow: var(--shadow-sm);
+}
+.today-stat-val { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+.today-stat-label { font-size: 10px; color: var(--text-muted); margin-top: 3px; font-weight: 600; }
 
-.goal-card { margin-bottom: 10px; }
-.goal-card-top { display: flex; justify-content: space-between; align-items: center; }
-.goal-name { font-size: 14px; font-weight: 700; }
-.goal-card-bottom { display: flex; justify-content: space-between; }
-.goal-logged { font-size: 12px; color: var(--text-muted); }
-.goal-pct { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-
-/* Empty state */
-.empty-state { text-align: center; padding: 24px; }
-.empty-icon { font-size: 32px; margin-bottom: 10px; }
-.empty-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-.empty-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+/* Goals */
+.goal-card {
+  transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.goal-card:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.goal-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.goal-name { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+.goal-card-bottom { display: flex; justify-content: space-between; margin-top: 6px; }
+.goal-logged { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.goal-pct { font-size: 11px; color: var(--text-muted); font-weight: 700; }

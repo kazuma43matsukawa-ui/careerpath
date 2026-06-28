@@ -8,13 +8,7 @@ interface Props {
 }
 
 export default function Dashboard({ onNavigate }: Props) {
-  const { state, elapsedSeconds, startTimer, stopTimer, currentWeekCommit } = useAppState();
-  const [now, setNow] = useState(Date.now());
-
-  useEffect(() => {
-    const t = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(t);
-  }, []);
+  const { state, elapsedSeconds, startTimer, stopTimer, currentWeekCommit, getStreak } = useAppState();
 
   const formatTime = (secs: number) => {
     const h = Math.floor(secs / 3600);
@@ -28,24 +22,50 @@ export default function Dashboard({ onNavigate }: Props) {
   const weekActualHours = currentWeekCommit ? currentWeekCommit.actualMinutes / 60 : 0;
   const weekTargetHours = currentWeekCommit?.targetHours || 10;
   const weekPct = Math.min(100, Math.round((weekActualHours / weekTargetHours) * 100));
+  const streak = getStreak();
+  const totalHours = state.sessions.reduce((s, sess) => s + sess.minutes, 0) / 60;
+  const todayMins = state.sessions.filter(s => s.date === new Date().toISOString().split('T')[0]).reduce((s, sess) => s + sess.minutes, 0);
 
   const activeQual = state.activeTimerGoalId
     ? QUALIFICATIONS.find(q => q.id === state.activeTimerGoalId)
     : null;
+
+  const hour = new Date().getHours();
+  const greeting = hour < 10 ? 'おはようございます' : hour < 17 ? 'こんにちは' : 'おつかれさまです';
 
   return (
     <div className="page dashboard">
       <div className="dash-header">
         <div className="dash-header-inner">
           <div>
-            <p className="dash-greeting">おはようございます</p>
+            <p className="dash-greeting">{greeting} 👋</p>
             <h1 className="dash-title">マイダッシュボード</h1>
           </div>
-          <div className="dash-date">{new Date().toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' })}</div>
+          <div className="dash-date">
+            {new Date().toLocaleDateString('ja-JP', { month: 'long', day: 'numeric', weekday: 'short' })}
+          </div>
         </div>
       </div>
 
       <div className="dash-body">
+
+        {/* 今日の統計 */}
+        <div className="today-stats">
+          <div className="today-stat">
+            <p className="today-stat-val">{Math.round(todayMins)}m</p>
+            <p className="today-stat-label">今日の学習</p>
+          </div>
+          <div className="today-stat">
+            <p className="today-stat-val" style={{ color: 'var(--green)' }}>{streak}</p>
+            <p className="today-stat-label">連続日数 🔥</p>
+          </div>
+          <div className="today-stat">
+            <p className="today-stat-val">{totalHours.toFixed(0)}h</p>
+            <p className="today-stat-label">累計学習</p>
+          </div>
+        </div>
+
+        {/* Weekly Commit Card */}
         <div className="commit-card card">
           <div className="commit-card-top">
             <div>
@@ -61,26 +81,25 @@ export default function Dashboard({ onNavigate }: Props) {
               <span className="commit-pct-label">{weekPct}%</span>
             </div>
           </div>
-          <div className="progress-bar" style={{ marginTop: 10 }}>
-            <div className="progress-fill" style={{ width: `${weekPct}%`, background: 'var(--green)' }} />
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${weekPct}%`, background: 'linear-gradient(90deg, var(--green), #1db87a)' }} />
           </div>
           <p className="commit-remaining">
-            {weekPct >= 100
-              ? '今週の目標達成！'
-              : `あと ${(weekTargetHours - weekActualHours).toFixed(1)}時間で達成`}
+            {weekPct >= 100 ? '🎉 今週の目標達成！' : `あと ${(weekTargetHours - weekActualHours).toFixed(1)}時間で達成`}
           </p>
         </div>
 
+        {/* Timer */}
         {state.activeTimerGoalId ? (
           <div className="timer-card card timer-card--active">
             <p className="timer-qual-name">{activeQual?.name}</p>
             <p className="timer-elapsed">{formatTime(elapsedSeconds)}</p>
-            <button className="btn-stop" onClick={() => stopTimer()}>学習を終了する</button>
+            <button className="btn-stop" onClick={() => stopTimer()}>⏹ 学習を終了する</button>
           </div>
         ) : (
           state.goals.length > 0 && (
             <div className="start-study card">
-              <p className="start-label">どの資格を勉強しますか？</p>
+              <p className="start-label">今日の学習をはじめる</p>
               <div className="start-list">
                 {state.goals.map(goal => {
                   const qual = QUALIFICATIONS.find(q => q.id === goal.qualificationId);
@@ -90,7 +109,7 @@ export default function Dashboard({ onNavigate }: Props) {
                     <button key={goal.qualificationId} className="start-item" onClick={() => startTimer(goal.qualificationId)}>
                       <div>
                         <p className="start-item-name">{qual.name}</p>
-                        <p className="start-item-sub">{pct}% 完了</p>
+                        <p className="start-item-sub">{pct}% 完了 · あと{Math.round(Math.max(0, qual.totalHours - goal.loggedMinutes / 60))}h</p>
                       </div>
                       <span className="start-item-play">▶</span>
                     </button>
@@ -101,6 +120,7 @@ export default function Dashboard({ onNavigate }: Props) {
           )
         )}
 
+        {/* Goals */}
         <div className="goals-section">
           <div className="section-head">
             <p className="section-title">学習目標</p>
@@ -126,7 +146,7 @@ export default function Dashboard({ onNavigate }: Props) {
                     <p className="goal-name">{qual.name}</p>
                     <span className="badge badge-green">あと{Math.round(remaining)}h</span>
                   </div>
-                  <div className="progress-bar" style={{ margin: '8px 0' }}>
+                  <div className="progress-bar">
                     <div className="progress-fill" style={{ width: `${pct}%`, background: qual.color }} />
                   </div>
                   <div className="goal-card-bottom">
@@ -148,12 +168,18 @@ function DonutChart({ pct }: { pct: number }) {
   const circ = 2 * Math.PI * r;
   const offset = circ * (1 - pct / 100);
   return (
-    <svg width="56" height="56" viewBox="0 0 56 56">
-      <circle cx="28" cy="28" r={r} fill="none" stroke="#e2e8f0" strokeWidth="6" />
-      <circle cx="28" cy="28" r={r} fill="none" stroke="#3db891" strokeWidth="6"
+    <svg width="60" height="60" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r={r} fill="none" stroke="#e8eef5" strokeWidth="7" />
+      <circle cx="30" cy="30" r={r} fill="none" stroke="url(#grad)" strokeWidth="7"
         strokeDasharray={circ} strokeDashoffset={offset}
-        strokeLinecap="round" transform="rotate(-90 28 28)"
-        style={{ transition: 'stroke-dashoffset 0.5s ease' }} />
+        strokeLinecap="round" transform="rotate(-90 30 30)"
+        style={{ transition: 'stroke-dashoffset 0.6s ease' }} />
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#2ec98a" />
+          <stop offset="100%" stopColor="#1db87a" />
+        </linearGradient>
+      </defs>
     </svg>
   );
 }

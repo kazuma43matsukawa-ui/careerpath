@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
+import { useAuth } from './hooks/useAuth';
 import Landing from './pages/Landing';
+import Auth from './pages/Auth';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Goals from './pages/Goals';
@@ -9,7 +11,7 @@ import Calendar from './pages/Calendar';
 import Study from './pages/Study';
 import Consult from './pages/Consult';
 
-type Page = 'landing' | 'onboarding' | 'dashboard' | 'goals' | 'study' | 'commit' | 'calendar' | 'consult';
+type Page = 'landing' | 'auth' | 'onboarding' | 'dashboard' | 'goals' | 'study' | 'consult' | 'commit' | 'calendar';
 
 const ONBOARDING_KEY = 'careerpath_onboarded';
 
@@ -47,7 +49,8 @@ function NavIcon({ name }: { name: string }) {
 }
 
 export default function App() {
-  const [page, setPage] = useState<Page>('landing');
+  const [page, setPage] = useState<Page>('auth');
+  const { user, loading, signOut, profile } = useAuth();
 
   const navItems = [
     { id: 'dashboard', label: 'ホーム' },
@@ -57,7 +60,18 @@ export default function App() {
     { id: 'calendar', label: '記録' },
   ] as const;
 
-  const handleLandingStart = () => {
+  useEffect(() => {
+    if (!loading) {
+      if (user) {
+        const alreadyOnboarded = localStorage.getItem(ONBOARDING_KEY);
+        setPage(alreadyOnboarded ? 'dashboard' : 'onboarding');
+      } else {
+        setPage('auth');
+      }
+    }
+  }, [user, loading]);
+
+  const handleAuthComplete = () => {
     const alreadyOnboarded = localStorage.getItem(ONBOARDING_KEY);
     setPage(alreadyOnboarded ? 'dashboard' : 'onboarding');
   };
@@ -67,7 +81,15 @@ export default function App() {
     setPage('dashboard');
   };
 
-  if (page === 'landing') return <Landing onStart={handleLandingStart} />;
+  if (loading) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0f1f3d', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ color: '#2ec98a', fontSize: 24, fontWeight: 700 }}>C</div>
+      </div>
+    );
+  }
+
+  if (page === 'auth') return <Auth onComplete={handleAuthComplete} />;
   if (page === 'onboarding') return <Onboarding onComplete={handleOnboardingComplete} />;
 
   return (

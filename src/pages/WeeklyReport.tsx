@@ -92,6 +92,30 @@ export default function WeeklyReport() {
     const weekTarget = currentWeekCommit?.targetHours || 10;
     const achieveRate = Math.round((totalMins / 60 / weekTarget) * 100);
 
+    // 先週のメモを取得
+    const lastMonday = new Date();
+    lastMonday.setDate(lastMonday.getDate() - lastMonday.getDay() - 6);
+    const lastSunday = new Date(lastMonday);
+    lastSunday.setDate(lastMonday.getDate() + 6);
+
+    let memoText = '';
+    if (user) {
+      const { data: memos } = await supabase
+        .from('study_memos')
+        .select('*')
+        .eq('user_id', user.id)
+        .gte('date', lastMonday.toISOString().split('T')[0])
+        .lte('date', lastSunday.toISOString().split('T')[0])
+        .order('date', { ascending: true });
+
+      if (memos && memos.length > 0) {
+        const moodLabels = ['つらい', '普通', '良い', '最高', '神がかり'];
+        memoText = '\n\n先週の学習メモ：\n' + memos.map(m =>
+          `・${m.date}（${m.qualification_name}・${Math.floor(m.study_minutes/60)}時間${m.study_minutes%60>0?`${m.study_minutes%60}分`:''}・調子:${moodLabels[m.mood]}）\n  ${m.content}`
+        ).join('\n');
+      }
+    }
+
     const userMessage = `
 先週の学習データ：
 - 合計学習時間：${(totalMins / 60).toFixed(1)}時間
@@ -99,9 +123,9 @@ export default function WeeklyReport() {
 - 週間目標：${weekTarget}時間
 - 達成率：${achieveRate}%
 - 資格別学習時間：${qualStats.map(q => `${q.name}（${(q.weekMins / 60).toFixed(1)}時間）`).join('、') || 'なし'}
-- 累計学習時間：${(state.sessions.reduce((s, sess) => s + sess.minutes, 0) / 60).toFixed(1)}時間
+- 累計学習時間：${(state.sessions.reduce((s, sess) => s + sess.minutes, 0) / 60).toFixed(1)}時間${memoText}
 
-上記のデータをもとに週次レポートを作成してください。`;
+上記のデータをもとに週次レポートを作成してください。メモがある場合はその内容も踏まえて具体的なアドバイスをしてください。`;
 
     try {
       const res = await fetch(CHAT_API, {

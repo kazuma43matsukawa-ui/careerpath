@@ -1,0 +1,61 @@
+.memo-header-row { display: flex; justify-content: space-between; align-items: center; }
+.memo-add-btn {
+  background: var(--green); color: #fff; border-radius: 20px;
+  padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+
+.memo-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+/* Form */
+.memo-form { }
+.memo-form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.memo-form-header h3 { font-size: 15px; font-weight: 700; }
+.memo-close { font-size: 18px; color: var(--text-light); cursor: pointer; }
+
+.memo-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.memo-field label { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+.memo-field input, .memo-field select, .memo-field textarea {
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px; font-size: 14px; color: var(--text);
+  background: #fff; font-family: inherit; outline: none;
+  transition: border-color 0.15s;
+}
+.memo-field input:focus, .memo-field select:focus, .memo-field textarea:focus {
+  border-color: var(--green);
+}
+.memo-field textarea { resize: none; line-height: 1.6; }
+
+/* Mood selector */
+.mood-selector { display: flex; gap: 6px; }
+.mood-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 8px 4px; cursor: pointer; transition: all 0.15s;
+}
+.mood-btn.active { background: var(--green-light); border-color: var(--green); }
+.mood-emoji { font-size: 20px; }
+.mood-label { font-size: 9px; color: var(--text-muted); font-weight: 600; }
+
+/* Filter */
+.memo-filter {
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.memo-filter::-webkit-scrollbar { display: none; }
+.memo-filter-btn {
+  flex-shrink: 0; padding: 5px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; cursor: pointer;
+  border: 1.5px solid var(--border); color: var(--text-muted);
+  background: var(--white); transition: all 0.15s;
+}
+.memo-filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* Memo card */
+.memo-card { }
+.memo-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.memo-card-left { display: flex; align-items: center; gap: 10px; }
+.memo-mood { font-size: 24px; }
+.memo-qual { font-size: 13px; font-weight: 700; color: var(--navy); }
+.memo-date { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+.memo-time { font-size: 14px; font-weight: 700; color: var(--green); }
+.memo-content { font-size: 13px; color: var(--text-muted); line-height: 1.7; }

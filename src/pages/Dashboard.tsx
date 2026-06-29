@@ -172,6 +172,18 @@ export default function Dashboard({ onNavigate, onShowPremium }: Props) {
           <span className="spb-arrow">→</span>
         </button>
 
+        {/* 週次レポートバナー */}
+        <button className="studyplan-banner" onClick={() => onNavigate('weeklyreport')} style={{ background: 'linear-gradient(135deg, #f0f4ff, #e8eeff)', borderColor: 'rgba(59,130,246,0.3)' }}>
+          <div className="spb-left">
+            <p className="spb-icon">📊</p>
+            <div>
+              <p className="spb-title">AI週次レポートを見る</p>
+              <p className="spb-desc">先週の学習を分析して今週のアドバイスを提案</p>
+            </div>
+          </div>
+          <span className="spb-arrow" style={{ color: '#3b82f6' }}>→</span>
+        </button>
+
         {/* プレミアムバナー */}
         <button className="premium-banner" onClick={onShowPremium}>
           <div className="pb-left">

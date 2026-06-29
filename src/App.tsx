@@ -12,7 +12,9 @@ import Consult from './pages/Consult';
 import Premium from './pages/Premium';
 import StudyPlan from './pages/StudyPlan';
 
-type Page = 'auth' | 'onboarding' | 'dashboard' | 'goals' | 'study' | 'consult' | 'commit' | 'calendar' | 'studyplan';
+import WeeklyReport from './pages/WeeklyReport';
+
+type Page = 'auth' | 'onboarding' | 'dashboard' | 'goals' | 'study' | 'consult' | 'commit' | 'calendar' | 'studyplan' | 'weeklyreport';
 
 const ONBOARDING_KEY = 'careerpath_onboarded';
 
@@ -109,6 +111,7 @@ export default function App() {
       {page === 'consult' && <Consult onShowPremium={() => setShowPremium(true)} />}
       {page === 'calendar' && <Calendar />}
       {page === 'studyplan' && <StudyPlan />}
+      {page === 'weeklyreport' && <WeeklyReport />}
 
       <nav className="bottom-nav">
         {navItems.map(item => (

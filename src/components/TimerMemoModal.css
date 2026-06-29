@@ -1,0 +1,51 @@
+.tmm-overlay {
+  position: fixed; inset: 0;
+  background: rgba(8,15,30,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 300;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+
+.tmm-modal {
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  width: 100%; max-width: 430px;
+  padding: 24px 20px 40px;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.tmm-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.tmm-congrats { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+.tmm-stats { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+.tmm-body { display: flex; flex-direction: column; gap: 14px; }
+
+.tmm-field { display: flex; flex-direction: column; gap: 8px; }
+.tmm-field label { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+.tmm-field textarea {
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px; font-size: 14px; color: var(--text);
+  background: var(--bg); font-family: inherit; outline: none;
+  resize: none; line-height: 1.6; transition: border-color 0.15s;
+}
+.tmm-field textarea:focus { border-color: var(--green); background: #fff; }
+
+.tmm-skip {
+  font-size: 13px; color: var(--text-light); text-align: center;
+  cursor: pointer; background: none; border: none;
+}
+
+.tmm-done {
+  text-align: center; padding: 40px 0;
+}
+.tmm-done-icon { font-size: 48px; margin-bottom: 12px; }
+.tmm-done-text { font-size: 16px; font-weight: 700; color: var(--navy); }

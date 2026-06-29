@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppState } from '../hooks/useAppState';
 import { QUALIFICATIONS } from '../data/masterData';
+import TimerMemoModal from '../components/TimerMemoModal';
 import './Dashboard.css';
 
 interface Props {
@@ -10,6 +11,16 @@ interface Props {
 
 export default function Dashboard({ onNavigate, onShowPremium }: Props) {
   const { state, elapsedSeconds, startTimer, stopTimer, currentWeekCommit, getStreak } = useAppState();
+  const [memoModal, setMemoModal] = useState<{ qualId: string; minutes: number } | null>(null);
+
+  const handleStopTimer = () => {
+    const qualId = state.activeTimerGoalId;
+    const minutes = Math.floor(elapsedSeconds / 60);
+    stopTimer();
+    if (qualId && minutes > 0) {
+      setMemoModal({ qualId, minutes });
+    }
+  };
 
   const formatTime = (secs: number) => {
     const h = Math.floor(secs / 3600);
@@ -35,6 +46,7 @@ export default function Dashboard({ onNavigate, onShowPremium }: Props) {
   const greeting = hour < 10 ? 'おはようございます' : hour < 17 ? 'こんにちは' : 'おつかれさまです';
 
   return (
+    <>
     <div className="page dashboard">
       <div className="dash-header">
         <div className="dash-header-inner">
@@ -95,7 +107,7 @@ export default function Dashboard({ onNavigate, onShowPremium }: Props) {
           <div className="timer-card card timer-card--active">
             <p className="timer-qual-name">{activeQual?.name}</p>
             <p className="timer-elapsed">{formatTime(elapsedSeconds)}</p>
-            <button className="btn-stop" onClick={() => stopTimer()}>⏹ 学習を終了する</button>
+            <button className="btn-stop" onClick={handleStopTimer}>⏹ 学習を終了する</button>
           </div>
         ) : (
           state.goals.length > 0 && (
@@ -198,6 +210,15 @@ export default function Dashboard({ onNavigate, onShowPremium }: Props) {
 
       </div>
     </div>
+
+    {memoModal && (
+      <TimerMemoModal
+        qualificationId={memoModal.qualId}
+        studyMinutes={memoModal.minutes}
+        onClose={() => setMemoModal(null)}
+      />
+    )}
+  </>
   );
 }
 

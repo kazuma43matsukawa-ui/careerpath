@@ -68,7 +68,7 @@ export default function StudyMemo() {
   };
 
   const filteredMemos = filter === 'all' ? memos : memos.filter(m => m.qualification_id === filter);
-  const qualOptions = [...new Set(memos.map(m => m.qualification_id))].map(id => ({
+  const qualOptions = Array.from(new Set(memos.map(m => m.qualification_id))).map(id => ({
     id, name: QUALIFICATIONS.find(q => q.id === id)?.name || id
   }));
 

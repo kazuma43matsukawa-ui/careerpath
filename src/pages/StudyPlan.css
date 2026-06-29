@@ -46,3 +46,32 @@
 .sp-empty { height: 8px; }
 
 .sp-actions { padding-bottom: 20px; }
+
+/* Header */
+.sp-header-row { display: flex; justify-content: space-between; align-items: center; }
+.sp-tabs { display: flex; gap: 4px; background: var(--bg); border-radius: 10px; padding: 3px; }
+.sp-tabs button {
+  padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+}
+.sp-tabs button.active { background: #fff; color: var(--navy); box-shadow: var(--shadow-sm); }
+
+/* Result actions */
+.sp-result-actions { padding: 0 0 20px; display: flex; flex-direction: column; }
+
+/* History */
+.sp-history { display: flex; flex-direction: column; gap: 12px; }
+.sp-saved-card { }
+.sp-saved-top { margin-bottom: 10px; }
+.sp-saved-name { font-size: 15px; font-weight: 700; color: var(--navy); }
+.sp-saved-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.sp-saved-date { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+.sp-saved-preview {
+  font-size: 12px; color: var(--text-muted); line-height: 1.6;
+  background: var(--bg); border-radius: var(--radius-sm); padding: 10px;
+  margin-bottom: 10px;
+}
+.sp-saved-expand {
+  font-size: 13px; color: var(--green); font-weight: 600;
+  cursor: pointer; background: none; border: none;
+}
